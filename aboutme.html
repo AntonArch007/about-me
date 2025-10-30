@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antonis Thomas - Portfolio</title>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    const Header = () => (
+      <header className="bg-white shadow-md fixed top-0 w-full z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Antonis Thomas</h1>
+          <nav className="space-x-6">
+            <a href="#about" className="hover:text-blue-600">About</a>
+            <a href="#education" className="hover:text-blue-600">Education</a>
+            <a href="#experience" className="hover:text-blue-600">Experience</a>
+            <a href="#projects" className="hover:text-blue-600">Projects</a>
+            <a href="#skills" className="hover:text-blue-600">Skills</a>
+            <a href="#contact" className="hover:text-blue-600">Contact</a>
+          </nav>
+        </div>
+      </header>
+    );
+
+    const Hero = () => (
+      <section className="bg-blue-600 text-white py-24 mt-16">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+          <img src="your-photo.jpg" alt="Profile" 
+            className="w-40 h-40 rounded-full shadow-lg border-4 border-white mb-6 md:mb-0 md:mr-8" />
+          <div>
+            <h2 className="text-4xl font-bold mb-2">Hi, I'm Antonis Thomas</h2>
+            <p className="text-lg">
+              Electrical & Computer Engineering student | Robotics enthusiast | Unit Testing Engineer at Nokia
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Section = ({ id, title, children, bg }) => (
+      <section id={id} className={`${bg ? bg : ""} py-16`}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h3 className="text-2xl font-bold mb-6">{title}</h3>
+          {children}
+        </div>
+      </section>
+    );
+
+    const ScrollToTop = () => {
+      const [visible, setVisible] = React.useState(false);
+
+      React.useEffect(() => {
+        const toggle = () => setVisible(window.scrollY > 300);
+        window.addEventListener("scroll", toggle);
+        return () => window.removeEventListener("scroll", toggle);
+      }, []);
+
+      return (
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className={`fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition ${visible ? "" : "hidden"}`}>
+          ↑
+        </button>
+      );
+    };
+
+    const App = () => (
+      <>
+        <Header />
+        <Hero />
+
+        <Section id="about" title="About Me">
+          <p className="text-gray-700 leading-relaxed">
+            I am an Electrical and Computer Engineering student at the University of Peloponnese, passionate about robotics, telecommunications, embedded systems, and software engineering.
+            Alongside my academic path, I am part of the University Robotics Team and currently working as a Unit Testing Engineer at Nokia.
+          </p>
+        </Section>
+
+        <Section id="education" title="Education" bg="bg-gray-50">
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h4 className="font-semibold">University of Peloponnese</h4>
+            <p>BSc in Electrical & Computer Engineering (Sep 2021 – Present)</p>
+          </div>
+        </Section>
+
+        <Section id="experience" title="Experience">
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h4 className="font-semibold">Working Student – Unit Testing Engineer</h4>
+              <p className="text-gray-600">Nokia Hellas (2024 – Present)</p>
+              <ul className="list-disc list-inside mt-2 text-gray-700">
+                <li>Unit testing and validation of 5G Core network components</li>
+                <li>CI/CD pipelines with Jenkins, Docker & Kubernetes</li>
+                <li>Hands-on experience with C/C++ and protocol stacks</li>
+              </ul>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h4 className="font-semibold">Robotics Team Member</h4>
+              <p className="text-gray-600">University of Peloponnese Robotics Team (2022 – 2025)</p>
+              <ul className="list-disc list-inside mt-2 text-gray-700">
+                <li>Design and implementation of sumo robots and autonomous systems</li>
+                <li>Experience in embedded systems, IR sensors, and kill-switch mechanisms</li>
+                <li>Participation in national and international robotics competitions</li>
+              </ul>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="projects" title="Projects" bg="bg-gray-50">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h4 className="font-semibold">Sumo Robot</h4>
+              <p className="text-gray-700">Designed and built an autonomous sumo robot with IR kill-switch and optimized mobility.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h4 className="font-semibold">Telecommunication Systems</h4>
+              <p className="text-gray-700">Worked on advanced telecom projects including 5G/6G systems and RF link budget simulations.</p>
+            </div>
+          </div>
+        </Section>
+
+        <Section id="skills" title="Skills">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="bg-white p-4 rounded-lg shadow">C / C++</div>
+            <div className="bg-white p-4 rounded-lg shadow">Embedded Systems (ARM, STM32, FPGA)</div>
+            <div className="bg-white p-4 rounded-lg shadow">Telecommunications (5G/6G, RF Systems)</div>
+            <div className="bg-white p-4 rounded-lg shadow">MATLAB / Simulink</div>
+            <div className="bg-white p-4 rounded-lg shadow">Docker / Kubernetes</div>
+            <div className="bg-white p-4 rounded-lg shadow">CI/CD (Jenkins, Git)</div>
+          </div>
+        </Section>
+
+        <Section id="contact" title="Contact" bg="bg-blue-600 text-white">
+          <p>Email: <a href="mailto:your-email@example.com" className="underline">your-email@example.com</a></p>
+          <p>LinkedIn: <a href="https://linkedin.com/in/your-profile" className="underline">linkedin.com/in/your-profile</a></p>
+          <p>GitHub: <a href="https://github.com/AntonArch007" className="underline">AntonArch007</a></p>
+        </Section>
+
+        <footer className="bg-gray-800 text-white text-center py-6">
+          <p>&copy; 2025 Antonis Thomas. All rights reserved.</p>
+        </footer>
+
+        <ScrollToTop />
+      </>
+    );
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
